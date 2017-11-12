@@ -1,0 +1,28 @@
+#Harbor使用指南，默认采用http方式，企业级应用采用https加密验方案
+
+# INSTALL STEP
+
+1、修改harbor.cfg文件相关配置项(重要配置)
+	hostname = docker.youshehui.com	#域名为本机DNS解析
+	ui_url_protocol = https			#采用https验证方案,docker registry默认采用,避免http方式要修改docker engine配置
+	db_password = harbor_password			#harbor组件镜像之mysql root密码
+	ssl_cert =  /srv/docker/registry/certs/xxxxxxxxxxxxxxx.pem	#阿里云申请免费ssl证书,注意绑定域名docker.youshehui.com
+	ssl_cert_key = /srv/docker/registry/certs/xxxxxxxxxxxxx.key
+	
+	harbor_admin_password = xxxx	#harbor ui界面登录密码，账号默认：admin
+	auth_mode = db_auth				#采用mysql存储用户账号,牛逼可以使用ldap认证
+	
+2、执行install.sh脚本,会执行初始化配置,调用docker-compose启动镜像
+	./install.sh
+
+3、执行成功后,会启动7个镜像
+	harbor-jobservice
+	nginx
+	harbor-ui
+	harbor-registry
+	harbor-adminserver
+	harbor-db
+	harbor-log
+	
+
+
